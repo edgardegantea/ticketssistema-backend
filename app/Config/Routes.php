@@ -23,6 +23,23 @@ $routes->group('api', static function ($routes) {
         $routes->get('tickets', 'Admin\TicketController::index');
         $routes->get('tickets/summary', 'Admin\TicketController::summary');
 
+
+        // IMPORTANTE: estas tres rutas para el CRUD
+        $routes->post('tickets', 'Admin\TicketController::create');
+        $routes->put('tickets/(:num)', 'Admin\TicketController::update/$1');
+        $routes->patch('tickets/(:num)', 'Admin\TicketController::update/$1');
+        $routes->delete('tickets/(:num)', 'Admin\TicketController::delete/$1');
+        $routes->get('tickets/(:num)', 'Admin\TicketController::show/$1');
+
+        $routes->patch('tickets/(:num)', 'Admin\TicketController::update/$1');
+        $routes->put('tickets/(:num)', 'Admin\TicketController::update/$1');
+
+        $routes->post('tickets/bulk-delete', 'Admin\TicketController::bulkDelete');
+
+
+        $routes->get('tickets/(:num)/comments', 'Admin\TicketCommentController::index/$1');
+        $routes->post('tickets/(:num)/comments', 'Admin\TicketCommentController::create/$1');
+
     });
 
     $routes->options('(:any)', static function () {
