@@ -20,6 +20,9 @@ $routes->group('api', static function ($routes) {
 
     $routes->group('admin', ['filter' => ['jwt', 'group:admin']], static function ($routes) {
         $routes->get('dashboard', 'Admin\DashboardController::index');
+        $routes->get('tickets', 'Admin\TicketController::index');
+        $routes->get('tickets/summary', 'Admin\TicketController::summary');
+
     });
 
     $routes->options('(:any)', static function () {

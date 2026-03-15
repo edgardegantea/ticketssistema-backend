@@ -4,30 +4,34 @@ namespace Config;
 
 use CodeIgniter\Config\BaseConfig;
 
-/**
- * Cross-Origin Resource Sharing (CORS) Configuration
- */
 class Cors extends BaseConfig
 {
-    // Config por defecto que usará el filtro si no se especifica otra
     public array $default = [
-        'allowedOrigins'         => ['http://localhost:5173'],
+        'allowedOrigins'         => [
+            'http://localhost:5173',      // Dev Vite
+            'https://tickets.maewalliscorp.org',  // Prod frontend
+            'http://tickets.maewalliscorp.org'    // Si pruebas sin HTTPS
+        ],
         'allowedOriginsPatterns' => [],
-        'supportsCredentials'    => false,
+        'supportsCredentials'    => false,  // Cambia a true si usas cookies/auth
         'allowedHeaders'         => ['Content-Type', 'Authorization', 'X-Requested-With'],
         'exposedHeaders'         => [],
         'allowedMethods'         => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
         'maxAge'                 => 3600,
     ];
 
-    // (Opcional) perfil api, si quisieras otro distinto
+    // Perfil específico para API
     public array $api = [
-        'allowedOrigins'         => ['http://localhost:5173'],
+        'allowedOrigins'         => [
+            'https://tickets.maewalliscorp.org',
+            'http://tickets.maewalliscorp.org',
+            'http://localhost:5173'  // Para desarrollo local
+        ],
         'allowedOriginsPatterns' => [],
-        'supportsCredentials'    => false,
-        'allowedHeaders'         => ['Content-Type', 'Authorization', 'X-Requested-With'],
+        'supportsCredentials'    => true,   // JWT cookies si usas Shield
+        'allowedHeaders'         => ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
         'exposedHeaders'         => [],
-        'allowedMethods'         => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-        'maxAge'                 => 3600,
+        'allowedMethods'         => ['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+        'maxAge'                 => 86400,  // 24h cache preflight
     ];
 }
